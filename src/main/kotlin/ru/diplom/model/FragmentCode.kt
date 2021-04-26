@@ -1,8 +1,10 @@
 import kotlinx.serialization.Serializable
+import ru.diplom.example.Example
 
 @Serializable
 data class FragmentCode(
-    val variables: Map<String, String>,
+    val example: Example,
+    val variables: MutableMap<String, String>, // todo: в идеале не мутабл
 
     val conditions: List<Condition>
 )
@@ -10,8 +12,8 @@ data class FragmentCode(
 @Serializable
 data class Condition(
     val type: ConditionType,
-    val name: String,
-    val countExecutions: Int
+    // val name: String,
+    var countExecutions: Int = 0
 )
 
 enum class ConditionType {
