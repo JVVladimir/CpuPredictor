@@ -23,7 +23,7 @@ class StaticalFirstForward(
         predictedConditionId = predictNextCondition(null)
     }
 
-    override fun onConditionEvent(conditionId: Int) {
+    override infix fun event(conditionId: Int) {
         logger.info { "Event for conditionId: $conditionId triggered" }
         val condition = codeFragment.conditions.first { it.id == conditionId }
         condition.countExecutions++

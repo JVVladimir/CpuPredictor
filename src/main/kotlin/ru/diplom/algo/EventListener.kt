@@ -2,7 +2,7 @@ package ru.diplom.algo
 
 interface EventListener {
 
-    fun onConditionEvent(conditionId: Int)
+    infix fun event(conditionId: Int)
 
     fun onCodeEnd()
 }

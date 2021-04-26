@@ -2,6 +2,8 @@ package ru.diplom.example
 
 import Condition
 import ConditionType
+import ConditionType.ELSE
+import ConditionType.IF
 import FragmentCode
 import mu.KLogging
 import ru.diplom.algo.EventListener
@@ -14,22 +16,10 @@ class CodeCodeExampleOne : CodeExample {
     // id идут строго по порядку по возрастанию!!!
     val fragmentCode = FragmentCode(
         conditions = listOf(
-            Condition(
-                id = 1,
-                type = ConditionType.IF, // todo: добавить текстовое представление для удобства (a > 1_000)
-            ),
-            Condition(
-                id = 2,
-                type = ConditionType.ELSE,
-            ),
-            Condition(
-                id = 3,
-                type = ConditionType.IF,
-            ),
-            Condition(
-                id = 4,
-                type = ConditionType.IF,
-            )
+            Condition(1, IF),
+            Condition(2, ELSE),
+            Condition(3, IF),
+            Condition(4, IF)
         )
     )
 
@@ -38,17 +28,17 @@ class CodeCodeExampleOne : CodeExample {
         val b = 0
 
         if (a > 1_000) {
-            listener.onConditionEvent(1)
+            listener event 1
         } else {
-            listener.onConditionEvent(2)
+            listener event 2
         }
 
         if (b < 10) {
-            listener.onConditionEvent(3)
+            listener event 3
         }
 
         if (a > 10) {
-            listener.onConditionEvent(4)
+            listener event 4
         }
         listener.onCodeEnd()
     }
