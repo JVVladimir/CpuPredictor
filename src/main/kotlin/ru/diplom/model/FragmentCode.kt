@@ -1,11 +1,7 @@
 import kotlinx.serialization.Serializable
-import ru.diplom.example.Example
 
 @Serializable
 data class FragmentCode(
-    val example: Example,
-    val variables: MutableMap<String, String>, // todo: в идеале не мутабл
-
     val conditions: List<Condition>
 )
 
@@ -13,9 +9,9 @@ data class FragmentCode(
 data class Condition(
     var id: Int,
     val type: ConditionType,
-    // val name: String,
     var countExecutions: Int = 0,
-    var commandAddress: String
+    var root: Condition? = null,
+    var conditions: List<Condition> = emptyList()
 )
 
 enum class ConditionType {
@@ -23,5 +19,8 @@ enum class ConditionType {
     ELSE_IF,
     ELSE,
     WHILE,
-    FOR
+    FOR;
 }
+
+fun ConditionType.isInitialCondition() =
+    this == ConditionType.IF || this == ConditionType.WHILE || this == ConditionType.FOR
