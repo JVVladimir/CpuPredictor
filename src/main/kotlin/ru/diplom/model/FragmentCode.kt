@@ -11,9 +11,11 @@ data class FragmentCode(
 
 @Serializable
 data class Condition(
+    var id: Int,
     val type: ConditionType,
     // val name: String,
-    var countExecutions: Int = 0
+    var countExecutions: Int = 0,
+    var commandAddress: String
 )
 
 enum class ConditionType {

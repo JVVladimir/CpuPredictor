@@ -3,7 +3,7 @@ package ru.diplom.algo
 import FragmentCode
 import mu.KLogging
 
-class StaticalNoIntelligent: Algorithm {
+class StaticalNoIntelligent: Algorithm, EventListener {
 
     companion object: KLogging()
 
