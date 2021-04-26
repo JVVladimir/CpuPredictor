@@ -4,5 +4,5 @@ class StaticalNoIntelligent {
 
     companion object: KLogging()
 
-    
+
 }
