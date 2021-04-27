@@ -1,7 +1,6 @@
 package ru.diplom.example
 
 import Condition
-import ConditionType
 import ConditionType.ELSE
 import ConditionType.IF
 import FragmentCode
@@ -9,7 +8,7 @@ import mu.KLogging
 import ru.diplom.algo.EventListener
 
 // Предсказатель ветвлений должен, не разбирая условие, понять куда ему двигаться!!!
-class CodeCodeExampleOne : CodeExample {
+class CodeExampleOne : CodeExample {
 
     companion object : KLogging()
 

@@ -14,9 +14,6 @@ class StaticalFirstForward(
     var countOfMisses = 0
     var countOfHits = 0
 
-    //var overallTimeForExecution = 0
-
-    //  private var timePerStep = 0
     private var predictedConditionId = -1
 
     init {
@@ -25,7 +22,9 @@ class StaticalFirstForward(
 
     override infix fun event(conditionId: Int) {
         logger.info { "Event for conditionId: $conditionId triggered" }
-        val condition = codeFragment.conditions.first { it.id == conditionId }
+        val condition = searchCondition(conditionId)
+        if (condition.id != conditionId)
+            throw RuntimeException("Алгоритм поиска отработал не корректно и нашел не то!")
         condition.countExecutions++
 
         if (predictedConditionId != conditionId) {
@@ -42,9 +41,30 @@ class StaticalFirstForward(
             countOfMisses++
         else
             countOfHits++
+    }
 
-//        overallTimeForExecution =
-//            2 * countOfMisses * CONDITION_EXECUTION + BODY_EXECUTION * countOfMisses + countOfHits * (CONDITION_EXECUTION + BODY_EXECUTION - CONDITION_EXECUTION + 1)
+    private fun searchCondition(conditionId: Int): Condition {
+        for (root in codeFragment.conditions) {
+            return if (root.id == conditionId)
+                root
+            else {
+                search(root, conditionId) ?: continue
+            }
+        }
+
+        return codeFragment.conditions[0]
+    }
+
+    private fun search(root: Condition, conditionId: Int): Condition? {
+        for (i in root.conditions) {
+            return if (i.id == conditionId)
+                i
+            else if (i.conditions.isEmpty())
+                continue
+            else
+                search(i, conditionId)
+        }
+        return null
     }
 
     private fun conditionMissed(condition: Condition) {
@@ -63,16 +83,16 @@ class StaticalFirstForward(
             return codeFragment.conditions.first { it.id == 1 }.id
         }
 
-        if (currentCond.conditions.isEmpty()) {
+        return if (currentCond.conditions.isEmpty()) {
             if (currentCond.root == null) {
-                return codeFragment.conditions
+                codeFragment.conditions
                     .firstOrNull { currentCond.id < it.id && it.type.isInitialCondition() }?.id ?: -1
+            } else {
+                currentCond.root!!.conditions.firstOrNull { currentCond.id < it.id && it.type.isInitialCondition() }?.id
+                    ?: currentCond.root!!.id
             }
-            // Если сверху цикл, то возвращаем его же
-            // иначе ищем след начальное условие того же уровня
-            return -1
         } else {
-            return currentCond.conditions.first { it.type.isInitialCondition() }.id
+            currentCond.conditions.first { it.type.isInitialCondition() }.id
         }
     }
 

@@ -12,7 +12,11 @@ data class Condition(
     var countExecutions: Int = 0,
     var root: Condition? = null,
     var conditions: List<Condition> = emptyList()
-)
+) {
+    override fun toString(): String {
+        return "$id $type $countExecutions $conditions"
+    }
+}
 
 enum class ConditionType {
     IF,
