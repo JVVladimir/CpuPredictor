@@ -28,3 +28,6 @@ enum class ConditionType {
 
 fun ConditionType.isInitialCondition() =
     this == ConditionType.IF || this == ConditionType.WHILE || this == ConditionType.FOR
+
+fun ConditionType.isCycle() =
+    this == ConditionType.WHILE || this == ConditionType.FOR

@@ -4,5 +4,5 @@ interface EventListener {
 
     infix fun event(conditionId: Int)
 
-    fun onCodeEnd()
+    fun onCodeEnd(lastCode: Int = 0)
 }

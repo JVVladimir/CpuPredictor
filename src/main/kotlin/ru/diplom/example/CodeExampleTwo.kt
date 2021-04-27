@@ -6,44 +6,53 @@ import FragmentCode
 import mu.KLogging
 import ru.diplom.algo.EventListener
 
-// Предсказатель ветвлений должен, не разбирая условие, понять куда ему двигаться!!!
 class CodeExampleTwo : CodeExample {
 
     companion object : KLogging()
 
+    // id идут строго по порядку по возрастанию!!!
     val fragmentCode = FragmentCode(
-        listOf(
-            Condition(1, WHILE).apply {
+        conditions = listOf(
+            Condition(1, IF).apply {
                 conditions = listOf(
                     Condition(2, IF, root = this),
-                    Condition(3, ELSE, root = this),
-                    Condition(4, IF, root = this),
+                    Condition(3, ELSE, root = this)
                 )
             },
-            Condition(5, IF)
+            Condition(4, ELSE_IF).apply {
+                conditions = listOf(
+                    Condition(5, IF, root = this),
+                    Condition(6, ELSE, root = this)
+                )
+            },
+            Condition(7, ELSE)
         )
     )
 
     override fun startCode(listener: EventListener) {
-        var a = 0
-        val b = 0
-
-        while (a < 10) {
+        val number1 = 60
+        val number2 = 60
+        if (number1 < 0) {
             listener event 1
-            if (a > 1_000) {
+            if (number2 < 0) {
                 listener event 2
+                "Negative numbers"
             } else {
                 listener event 3
+                "First negative, second positive"
             }
-
-            if (b < 10) {
-                listener event 4
+        } else if (number1 > 0) {
+            listener event 4
+            if (number2 > 0) {
+                listener event 5
+                "Positive numbers"
+            } else {
+                listener event 6
+                "First positive, second negative"
             }
-            a++
-        }
-
-        if (a > 9) {
-            listener event 5
+        } else {
+            listener event 7
+            "Both equal 0"
         }
         listener.onCodeEnd()
     }

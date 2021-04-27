@@ -2,6 +2,7 @@ package ru.diplom.algo
 
 import Condition
 import FragmentCode
+import isCycle
 import isInitialCondition
 import mu.KLogging
 
@@ -21,24 +22,26 @@ class StaticalFirstForward(
     }
 
     override infix fun event(conditionId: Int) {
-        logger.info { "Event for conditionId: $conditionId triggered" }
         val condition = searchCondition(conditionId)
         if (condition.id != conditionId)
             throw RuntimeException("Алгоритм поиска отработал не корректно и нашел не то!")
         condition.countExecutions++
 
+        logger.info { "Branch predicted: $predictedConditionId, actual: $conditionId" }
         if (predictedConditionId != conditionId) {
-            conditionMissed(condition)
+            countOfMisses++
         } else {
-            conditionHit(condition)
+            countOfHits++
         }
         predictedConditionId = predictNextCondition(condition)
     }
 
-    override fun onCodeEnd() {
-        logger.info { "Condition end" }
+    override fun onCodeEnd(lastCode: Int) {
+        logger.info { "Branch predicted: ${if (predictedConditionId == -1) "end" else predictedConditionId}, actual: end" }
+        logger.info { "Code end" }
         if (predictedConditionId != -1)
             countOfMisses++
+        else if (predictedConditionId != lastCode) ;
         else
             countOfHits++
     }
@@ -67,32 +70,27 @@ class StaticalFirstForward(
         return null
     }
 
-    private fun conditionMissed(condition: Condition) {
-        logger.info { "Condition missed: $condition" }
-        countOfMisses++
-    }
-
-    private fun conditionHit(condition: Condition) {
-        logger.info { "Condition hit: $condition" }
-        countOfHits++
-    }
-
+    // работает не больше трех уровней вложенности
     private fun predictNextCondition(currentCond: Condition?): Int {
-        logger.info { "Current condition id: $currentCond" }
         if (currentCond == null) {
             return codeFragment.conditions.first { it.id == 1 }.id
         }
 
-        return if (currentCond.conditions.isEmpty()) {
+        if (currentCond.conditions.isEmpty()) {
             if (currentCond.root == null) {
-                codeFragment.conditions
+                return codeFragment.conditions
                     .firstOrNull { currentCond.id < it.id && it.type.isInitialCondition() }?.id ?: -1
             } else {
-                currentCond.root!!.conditions.firstOrNull { currentCond.id < it.id && it.type.isInitialCondition() }?.id
-                    ?: currentCond.root!!.id
+                if (currentCond.root!!.type.isCycle()) {
+                    return currentCond.root!!.conditions.firstOrNull { currentCond.id < it.id && it.type.isInitialCondition() }?.id
+                        ?: currentCond.root!!.id
+                } else {
+                    return currentCond.root!!.conditions.firstOrNull { currentCond.id < it.id && it.type.isInitialCondition() }?.id
+                        ?: currentCond.root!!.root?.id ?: -1
+                }
             }
         } else {
-            currentCond.conditions.first { it.type.isInitialCondition() }.id
+            return currentCond.conditions.first { it.type.isInitialCondition() }.id
         }
     }
 
