@@ -33,36 +33,44 @@ class NeuralNetTest {
     @Test
     fun `code example two test`() {
         algorithm = NeuralNet(codeExampleTwo.fragmentCode)
+        algorithm.prepareDataSet(codeExampleTwo)
+
         codeExampleTwo.startCode(algorithm)
 
-        assertThat(algorithm.countOfMisses).isEqualTo(1)
-        assertThat(algorithm.countOfHits).isEqualTo(1)
+        assertThat(algorithm.countOfMisses).isEqualTo(0)
+        assertThat(algorithm.countOfHits).isEqualTo(2)
         assertThat(algorithm.countOfHits + algorithm.countOfMisses).isEqualTo(2)
     }
 
     @Test
     fun `code example three test`() {
         algorithm = NeuralNet(codeExampleThree.fragmentCode)
+        algorithm.prepareDataSet(codeExampleThree)
+
         codeExampleThree.startCode(algorithm)
 
-        assertThat(algorithm.countOfMisses).isEqualTo(3)
-        assertThat(algorithm.countOfHits).isEqualTo(29)
+        assertThat(algorithm.countOfMisses).isEqualTo(0)
+        assertThat(algorithm.countOfHits).isEqualTo(32)
         assertThat(algorithm.countOfHits + algorithm.countOfMisses).isEqualTo(32)
     }
 
     @Test
     fun `code example four test`() {
         algorithm = NeuralNet(codeExampleFour.fragmentCode)
+        algorithm.prepareDataSet(codeExampleFour)
+
         codeExampleFour.startCode(algorithm)
 
-        assertThat(algorithm.countOfMisses).isEqualTo(3)
-        assertThat(algorithm.countOfHits).isEqualTo(2)
-        assertThat(algorithm.countOfHits + algorithm.countOfMisses).isEqualTo(5)
+        assertThat(algorithm.countOfMisses).isEqualTo(0)
+        assertThat(algorithm.countOfHits).isEqualTo(4)
+        assertThat(algorithm.countOfHits + algorithm.countOfMisses).isEqualTo(4)
     }
 
     @Test
     fun `code example five test`() {
         algorithm = NeuralNet(codeExampleFive.fragmentCode)
+        algorithm.prepareDataSet(codeExampleFive)
+
         codeExampleFive.startCode(algorithm)
 
         assertThat(algorithm.countOfMisses).isEqualTo(8)

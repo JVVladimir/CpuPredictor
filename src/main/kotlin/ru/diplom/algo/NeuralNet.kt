@@ -62,7 +62,7 @@ class NeuralNet(
         return net.output(ds.features).getDouble(0).roundToInt()
     }
 
-    private fun MultiLayerNetwork.train(ds: DataSet, epoch: Int = 500) {
+    private fun MultiLayerNetwork.train(ds: DataSet, epoch: Int = 10000) {
         for (i in 0 until epoch) {
             this.fit(ds)
         }
@@ -70,7 +70,7 @@ class NeuralNet(
 
     private fun createNet(): MultiLayerNetwork {
         val conf = NeuralNetConfiguration.Builder()
-            .updater(Sgd(0.1))
+            .updater(Sgd(0.035))
             .seed(12345)
             .weightInit(WeightInit.XAVIER)
             .biasInit(0.0)
