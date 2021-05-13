@@ -37,12 +37,12 @@ abstract class AbstractAlgorithm(
         logger.debug { "Branch predicted: ${if (predictedConditionId == -1) "end" else predictedConditionId}, actual: end" }
         if (predictedConditionId != -1)
             countOfMisses++
-        else if (predictedConditionId != lastCode) ;
         else
             countOfHits++
 
         precise = countOfHits.toDouble() / (countOfMisses + countOfHits)
-        logger.info {"""
+        logger.info {
+            """
             =======================================
             "Code end with info:${getInfo()}"
             =======================================
@@ -87,6 +87,14 @@ abstract class AbstractAlgorithm(
                 input.add(mutableListOf(pair.first[1], pair.first[2], pair.second) to id)
             }
         }
+    }
+
+    open fun clearAlgo() {
+        countOfMisses = 0
+        countOfHits = 0
+        precise = 0.0
+        predictedConditionId = -1
+        input = mutableListOf()
     }
 
     fun getInfo(): String {

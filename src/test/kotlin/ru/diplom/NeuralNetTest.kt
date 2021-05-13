@@ -26,8 +26,8 @@ class NeuralNetTest {
         codeExampleOne.startCode(algorithm)
 
         assertThat(algorithm.countOfMisses).isEqualTo(0)
-        assertThat(algorithm.countOfHits).isEqualTo(3)
-        assertThat(algorithm.countOfHits + algorithm.countOfMisses).isEqualTo(3)
+        assertThat(algorithm.countOfHits).isEqualTo(4)
+        assertThat(algorithm.countOfHits + algorithm.countOfMisses).isEqualTo(4)
     }
 
     @Test
@@ -38,8 +38,8 @@ class NeuralNetTest {
         codeExampleTwo.startCode(algorithm)
 
         assertThat(algorithm.countOfMisses).isEqualTo(0)
-        assertThat(algorithm.countOfHits).isEqualTo(2)
-        assertThat(algorithm.countOfHits + algorithm.countOfMisses).isEqualTo(2)
+        assertThat(algorithm.countOfHits).isEqualTo(3)
+        assertThat(algorithm.countOfHits + algorithm.countOfMisses).isEqualTo(3)
     }
 
     @Test
@@ -61,9 +61,9 @@ class NeuralNetTest {
 
         codeExampleFour.startCode(algorithm)
 
-        assertThat(algorithm.countOfMisses).isEqualTo(0)
-        assertThat(algorithm.countOfHits).isEqualTo(4)
-        assertThat(algorithm.countOfHits + algorithm.countOfMisses).isEqualTo(4)
+        assertThat(algorithm.countOfMisses).isEqualTo(1)
+        assertThat(algorithm.countOfHits).isEqualTo(8)
+        assertThat(algorithm.countOfHits + algorithm.countOfMisses).isEqualTo(9)
     }
 
     @Test

@@ -25,8 +25,8 @@ class DynamicAnalysisTest {
         codeExampleOne.startCode(algorithm)
 
         assertThat(algorithm.countOfMisses).isEqualTo(2)
-        assertThat(algorithm.countOfHits).isEqualTo(1)
-        assertThat(algorithm.countOfHits + algorithm.countOfMisses).isEqualTo(3)
+        assertThat(algorithm.countOfHits).isEqualTo(2)
+        assertThat(algorithm.countOfHits + algorithm.countOfMisses).isEqualTo(4)
     }
 
     @Test
@@ -35,8 +35,8 @@ class DynamicAnalysisTest {
         codeExampleTwo.startCode(algorithm)
 
         assertThat(algorithm.countOfMisses).isEqualTo(1)
-        assertThat(algorithm.countOfHits).isEqualTo(1)
-        assertThat(algorithm.countOfHits + algorithm.countOfMisses).isEqualTo(2)
+        assertThat(algorithm.countOfHits).isEqualTo(2)
+        assertThat(algorithm.countOfHits + algorithm.countOfMisses).isEqualTo(3)
     }
 
     @Test
@@ -51,8 +51,11 @@ class DynamicAnalysisTest {
 
     @Test
     fun `code example four test`() {
-        algorithm = DynamicalAnalysis(codeExampleFour.fragmentCode)
-        codeExampleFour.startCode(algorithm)
+        repeat(2) {
+            algorithm = DynamicalAnalysis(codeExampleFour.fragmentCode)
+            codeExampleFour.startCode(algorithm)
+            algorithm.clearAlgo()
+        }
 
         assertThat(algorithm.countOfMisses).isEqualTo(3)
         assertThat(algorithm.countOfHits).isEqualTo(2)
@@ -62,7 +65,10 @@ class DynamicAnalysisTest {
     @Test
     fun `code example five test`() {
         algorithm = DynamicalAnalysis(codeExampleFive.fragmentCode)
-        codeExampleFive.startCode(algorithm)
+        repeat(2) {
+            codeExampleFive.startCode(algorithm)
+            algorithm.clearAlgo()
+        }
 
         assertThat(algorithm.countOfMisses).isEqualTo(8)
         assertThat(algorithm.countOfHits).isEqualTo(13)

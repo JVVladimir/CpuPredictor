@@ -24,8 +24,8 @@ class StaticalFirstForwardTest {
         codeExampleOne.startCode(algorithm)
 
         assertThat(algorithm.countOfMisses).isEqualTo(2)
-        assertThat(algorithm.countOfHits).isEqualTo(1)
-        assertThat(algorithm.countOfHits + algorithm.countOfMisses).isEqualTo(3)
+        assertThat(algorithm.countOfHits).isEqualTo(2)
+        assertThat(algorithm.countOfHits + algorithm.countOfMisses).isEqualTo(4)
     }
 
     @Test
@@ -34,8 +34,8 @@ class StaticalFirstForwardTest {
         codeExampleTwo.startCode(algorithm)
 
         assertThat(algorithm.countOfMisses).isEqualTo(1)
-        assertThat(algorithm.countOfHits).isEqualTo(1)
-        assertThat(algorithm.countOfHits + algorithm.countOfMisses).isEqualTo(2)
+        assertThat(algorithm.countOfHits).isEqualTo(2)
+        assertThat(algorithm.countOfHits + algorithm.countOfMisses).isEqualTo(3)
     }
 
     @Test
@@ -53,9 +53,9 @@ class StaticalFirstForwardTest {
         algorithm = StaticalFirstForward(codeExampleFour.fragmentCode)
         codeExampleFour.startCode(algorithm)
 
-        assertThat(algorithm.countOfMisses).isEqualTo(2)
-        assertThat(algorithm.countOfHits).isEqualTo(3)
-        assertThat(algorithm.countOfHits + algorithm.countOfMisses).isEqualTo(5)
+        assertThat(algorithm.countOfMisses).isEqualTo(4)
+        assertThat(algorithm.countOfHits).isEqualTo(5)
+        assertThat(algorithm.countOfHits + algorithm.countOfMisses).isEqualTo(9)
     }
 
     @Test

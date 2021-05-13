@@ -23,7 +23,8 @@ class CodeExampleFive : CodeExample {
     )
 
     override fun startCode(listener: EventListener) {
-        val arr = intArrayOf(2, 15, 1, 8, 4)
+        // Для полностью случайного массива - предсказание не возможно
+        val arr = intArrayOf(2, 15, 1, 8, 4) //16, 29, 1, 32, 46, 98, 63, 71, 15, 19, 92, 67)
         var swap = true
         while (swap) {
             listener event 1

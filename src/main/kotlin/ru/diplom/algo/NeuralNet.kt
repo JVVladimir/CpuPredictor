@@ -62,7 +62,7 @@ class NeuralNet(
         return net.output(ds.features).getDouble(0).roundToInt()
     }
 
-    private fun MultiLayerNetwork.train(ds: DataSet, epoch: Int = 10000) {
+    private fun MultiLayerNetwork.train(ds: DataSet, epoch: Int = 3000) {
         for (i in 0 until epoch) {
             this.fit(ds)
         }
@@ -103,10 +103,11 @@ class NeuralNet(
         return net
     }
 
-    private fun clearAlgo() {
+    override fun clearAlgo() {
         countOfHits = 0
         countOfMisses = 0
         predictedConditionId = -1
+        precise = 0.0
         for (i in 0..2)
             curIteration.putScalar(intArrayOf(0, i), 0)
     }
