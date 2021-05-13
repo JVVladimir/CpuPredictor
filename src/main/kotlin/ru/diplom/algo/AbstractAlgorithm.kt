@@ -39,7 +39,7 @@ abstract class AbstractAlgorithm(
             countOfHits++
     }
 
-    private fun searchCondition(conditionId: Int): Condition {
+    protected fun searchCondition(conditionId: Int): Condition {
         for (root in codeFragment.conditions) {
             return if (root.id == conditionId)
                 root

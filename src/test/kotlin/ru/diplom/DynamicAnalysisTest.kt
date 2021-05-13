@@ -2,16 +2,17 @@ package ru.diplom
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import ru.diplom.algo.DynamicalAnalysis
 import ru.diplom.algo.StaticalFirstForward
 import ru.diplom.example.*
 
 /**
- * Алгоритм статический не интеллектуальный вхождения в первое условие
+ * Алгоритм динамический не интеллектуальный
  *
  * */
-class StaticalFirstForwardTest {
+class DynamicAnalysisTest {
 
-    private lateinit var algorithm: StaticalFirstForward
+    private lateinit var algorithm: DynamicalAnalysis
     private var codeExampleOne = CodeExampleOne()
     private var codeExampleTwo = CodeExampleTwo()
     private var codeExampleThree = CodeExampleThree()
@@ -20,7 +21,7 @@ class StaticalFirstForwardTest {
 
     @Test
     fun `code example one test`() {
-        algorithm = StaticalFirstForward(codeExampleOne.fragmentCode)
+        algorithm = DynamicalAnalysis(codeExampleOne.fragmentCode)
         codeExampleOne.startCode(algorithm)
 
         assertThat(algorithm.countOfMisses).isEqualTo(2)
@@ -30,7 +31,7 @@ class StaticalFirstForwardTest {
 
     @Test
     fun `code example two test`() {
-        algorithm = StaticalFirstForward(codeExampleTwo.fragmentCode)
+        algorithm = DynamicalAnalysis(codeExampleTwo.fragmentCode)
         codeExampleTwo.startCode(algorithm)
 
         assertThat(algorithm.countOfMisses).isEqualTo(1)
@@ -40,27 +41,27 @@ class StaticalFirstForwardTest {
 
     @Test
     fun `code example three test`() {
-        algorithm = StaticalFirstForward(codeExampleThree.fragmentCode)
+        algorithm = DynamicalAnalysis(codeExampleThree.fragmentCode)
         codeExampleThree.startCode(algorithm)
 
-        assertThat(algorithm.countOfMisses).isEqualTo(12)
-        assertThat(algorithm.countOfHits).isEqualTo(20)
+        assertThat(algorithm.countOfMisses).isEqualTo(3)
+        assertThat(algorithm.countOfHits).isEqualTo(29)
         assertThat(algorithm.countOfHits + algorithm.countOfMisses).isEqualTo(32)
     }
 
     @Test
     fun `code example four test`() {
-        algorithm = StaticalFirstForward(codeExampleFour.fragmentCode)
+        algorithm = DynamicalAnalysis(codeExampleFour.fragmentCode)
         codeExampleFour.startCode(algorithm)
 
-        assertThat(algorithm.countOfMisses).isEqualTo(2)
-        assertThat(algorithm.countOfHits).isEqualTo(3)
+        assertThat(algorithm.countOfMisses).isEqualTo(3)
+        assertThat(algorithm.countOfHits).isEqualTo(2)
         assertThat(algorithm.countOfHits + algorithm.countOfMisses).isEqualTo(5)
     }
 
     @Test
     fun `code example five test`() {
-        algorithm = StaticalFirstForward(codeExampleFive.fragmentCode)
+        algorithm = DynamicalAnalysis(codeExampleFive.fragmentCode)
         codeExampleFive.startCode(algorithm)
 
         assertThat(algorithm.countOfMisses).isEqualTo(8)
