@@ -9,7 +9,6 @@ plugins {
 group = "me.vladimir"
 version = "1.0-SNAPSHOT"
 
-// Это нужно для сериализации Котлина (сканируется аннотация Serializable)
 buildscript {
     repositories { mavenCentral() }
 
@@ -29,6 +28,12 @@ dependencies {
     implementation("io.github.microutils:kotlin-logging:2.0.6")
     implementation("ch.qos.logback:logback-classic:1.2.3")
     implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.1.0")
+
+    implementation ("org.deeplearning4j:deeplearning4j-core:1.0.0-beta7") {
+        exclude("org.bytedeco", "openblas")
+    }
+    implementation ("org.nd4j:nd4j-native-platform:1.0.0-beta7")
+
 
     testImplementation(kotlin("test-junit5"))
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
