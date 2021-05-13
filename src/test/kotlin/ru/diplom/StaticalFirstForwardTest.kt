@@ -5,6 +5,10 @@ import org.junit.jupiter.api.Test
 import ru.diplom.algo.StaticalFirstForward
 import ru.diplom.example.*
 
+/**
+ * Алгоритм статический вхождения в первое условие
+ *
+ * */
 class StaticalFirstForwardTest {
 
     private lateinit var algorithm: StaticalFirstForward

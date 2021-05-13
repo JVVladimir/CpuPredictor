@@ -5,7 +5,7 @@ import FragmentCode
 import isCycle
 import isInitialCondition
 
-class StaticalFirstForward(
+class StatisticalAnalysis(
     private val codeFragment: FragmentCode
 ) : AbstractAlgorithm(codeFragment) {
 
@@ -13,7 +13,6 @@ class StaticalFirstForward(
         predictedConditionId = predictNextCondition(null)
     }
 
-    // работает не больше трех уровней вложенности
     override fun predictNextCondition(currentCond: Condition?): Int {
         if (currentCond == null) {
             return codeFragment.conditions.first { it.id == 1 }.id
