@@ -13,6 +13,7 @@ abstract class AbstractAlgorithm(
     open var countOfMisses = 0
     open var countOfHits = 0
     open var predictedConditionId = -1
+    open var precise = 0.0
     open var input = mutableListOf<Pair<MutableList<Int>, Int>>()
 
     override fun event(conditionId: Int) {
@@ -22,7 +23,7 @@ abstract class AbstractAlgorithm(
             throw RuntimeException("Алгоритм поиска отработал не корректно и нашел не то!")
         condition.countExecutions++
 
-        logger.info { "Branch predicted: $predictedConditionId, actual: $conditionId" }
+        logger.debug { "Branch predicted: $predictedConditionId, actual: $conditionId" }
         if (predictedConditionId != conditionId) {
             countOfMisses++
         } else {
@@ -33,14 +34,20 @@ abstract class AbstractAlgorithm(
 
     override fun onCodeEnd(lastCode: Int) {
         addId(-1)
-        logger.info { "Branch predicted: ${if (predictedConditionId == -1) "end" else predictedConditionId}, actual: end" }
+        logger.debug { "Branch predicted: ${if (predictedConditionId == -1) "end" else predictedConditionId}, actual: end" }
         if (predictedConditionId != -1)
             countOfMisses++
         else if (predictedConditionId != lastCode) ;
         else
             countOfHits++
 
-        logger.info { "Code end with info: ${getInfo()}" }
+        precise = countOfHits.toDouble() / (countOfMisses + countOfHits)
+        logger.info {"""
+            =======================================
+            "Code end with info:${getInfo()}"
+            =======================================
+        """.trimIndent()
+        }
     }
 
     private fun searchCondition(conditionId: Int): Condition {
@@ -83,6 +90,6 @@ abstract class AbstractAlgorithm(
     }
 
     fun getInfo(): String {
-        return "Missed: $countOfMisses, Hit: $countOfHits, Precise: ${countOfHits.toDouble() / (countOfMisses + countOfHits)}"
+        return "Missed: $countOfMisses, Hit: $countOfHits, Precise: $precise"
     }
 }
