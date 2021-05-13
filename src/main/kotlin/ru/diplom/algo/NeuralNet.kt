@@ -14,10 +14,11 @@ import org.nd4j.linalg.dataset.DataSet
 import org.nd4j.linalg.factory.Nd4j
 import org.nd4j.linalg.learning.config.Sgd
 import org.nd4j.linalg.lossfunctions.LossFunctions
+import ru.diplom.example.CodeExample
 import kotlin.math.roundToInt
 
 class NeuralNet(
-    private val codeFragment: FragmentCode
+    codeFragment: FragmentCode
 ) : AbstractAlgorithm(codeFragment) {
 
     private val net: MultiLayerNetwork
@@ -26,10 +27,30 @@ class NeuralNet(
     init {
         net = createNet()
         logger.info { net.summary() }
-        val ds = createDataSet()
+    }
+
+    fun prepareDataSet(codeExample: CodeExample) {
+        codeExample.startCode(this)
+        this.clearAlgo()
+        val ds = createDataSet(this.input)
+
         net.train(ds)
         logger.info { "After train output: ${net.output(ds.features)}" }
         predictedConditionId = predictNextCondition(null)
+    }
+
+    private fun createDataSet(list: MutableList<Pair<MutableList<Int>, Int>>): DataSet {
+        val input = Nd4j.zeros(list.size, 3)
+        val labels = Nd4j.zeros(list.size, 1)
+        var i = 0
+        list.forEach {
+            input.putScalar(intArrayOf(i, 0), it.first[0])
+            input.putScalar(intArrayOf(i, 1), it.first[1])
+            input.putScalar(intArrayOf(i, 2), it.first[2])
+            labels.putScalar(intArrayOf(i, 0), it.second)
+            i++
+        }
+        return DataSet(input, labels)
     }
 
     override fun predictNextCondition(currentCond: Condition?): Int {
@@ -82,31 +103,12 @@ class NeuralNet(
         return net
     }
 
-    private fun createDataSet(): DataSet {
-        val input = Nd4j.zeros(4, 3)
-        val labels = Nd4j.zeros(4, 1)
-
-        input.putScalar(intArrayOf(0, 0), 0)
-        input.putScalar(intArrayOf(0, 1), 0)
-        input.putScalar(intArrayOf(0, 2), 0)
-        labels.putScalar(intArrayOf(0, 0), 2)
-
-        input.putScalar(intArrayOf(1, 0), 0)
-        input.putScalar(intArrayOf(1, 1), 0)
-        input.putScalar(intArrayOf(1, 2), 2)
-        labels.putScalar(intArrayOf(1, 0), 3)
-
-        input.putScalar(intArrayOf(2, 0), 0)
-        input.putScalar(intArrayOf(2, 1), 2)
-        input.putScalar(intArrayOf(2, 2), 3)
-        labels.putScalar(intArrayOf(2, 0), 5)
-
-        input.putScalar(intArrayOf(3, 0), 2)
-        input.putScalar(intArrayOf(3, 1), 3)
-        input.putScalar(intArrayOf(3, 2), 5)
-        labels.putScalar(intArrayOf(3, 0), -1)
-
-        return DataSet(input, labels)
+    private fun clearAlgo() {
+        countOfHits = 0
+        countOfMisses = 0
+        predictedConditionId = -1
+        for (i in 0..2)
+            curIteration.putScalar(intArrayOf(0, i), 0)
     }
 
 }

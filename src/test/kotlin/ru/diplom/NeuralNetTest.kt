@@ -21,6 +21,8 @@ class NeuralNetTest {
     @Test
     fun `code example one test`() {
         algorithm = NeuralNet(codeExampleOne.fragmentCode)
+        algorithm.prepareDataSet(codeExampleOne)
+
         codeExampleOne.startCode(algorithm)
 
         assertThat(algorithm.countOfMisses).isEqualTo(0)

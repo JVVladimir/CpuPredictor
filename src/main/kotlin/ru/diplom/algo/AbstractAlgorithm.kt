@@ -13,8 +13,10 @@ abstract class AbstractAlgorithm(
     open var countOfMisses = 0
     open var countOfHits = 0
     open var predictedConditionId = -1
+    open var input = mutableListOf<Pair<MutableList<Int>, Int>>()
 
     override fun event(conditionId: Int) {
+        addId(conditionId)
         val condition = searchCondition(conditionId)
         if (condition.id != conditionId)
             throw RuntimeException("Алгоритм поиска отработал не корректно и нашел не то!")
@@ -30,16 +32,18 @@ abstract class AbstractAlgorithm(
     }
 
     override fun onCodeEnd(lastCode: Int) {
+        addId(-1)
         logger.info { "Branch predicted: ${if (predictedConditionId == -1) "end" else predictedConditionId}, actual: end" }
-        logger.info { "Code end" }
         if (predictedConditionId != -1)
             countOfMisses++
         else if (predictedConditionId != lastCode) ;
         else
             countOfHits++
+
+        logger.info { "Code end with info: ${getInfo()}" }
     }
 
-    protected fun searchCondition(conditionId: Int): Condition {
+    private fun searchCondition(conditionId: Int): Condition {
         for (root in codeFragment.conditions) {
             return if (root.id == conditionId)
                 root
@@ -65,7 +69,20 @@ abstract class AbstractAlgorithm(
 
     abstract fun predictNextCondition(currentCond: Condition?): Int
 
+    private fun addId(id: Int) {
+        when (input.size) {
+            0 -> input.add(mutableListOf(0, 0, 0) to id)
+            1 -> input.add(mutableListOf(0, 0, input[0].second) to id)
+            2 -> input.add(mutableListOf(0, input[0].second, input[1].second) to id)
+            3 -> input.add(mutableListOf(input[0].second, input[1].second, input[2].second) to id)
+            else -> {
+                val pair = input[input.size - 1]
+                input.add(mutableListOf(pair.first[1], pair.first[2], pair.second) to id)
+            }
+        }
+    }
+
     fun getInfo(): String {
-        return "Missed: $countOfMisses, Hit: $countOfHits"
+        return "Missed: $countOfMisses, Hit: $countOfHits, Precise: ${countOfHits.toDouble() / (countOfMisses + countOfHits)}"
     }
 }
