@@ -47,9 +47,24 @@ tasks.test {
 }
 
 tasks.withType<KotlinCompile>() {
-    kotlinOptions.jvmTarget = "13"
+    kotlinOptions.jvmTarget = "11"
 }
 
 application {
     mainClassName = "MainKt"
+}
+
+tasks.withType<Tar> {
+    enabled = false
+}
+
+tasks.withType<Jar> {
+    enabled = true
+    manifest {
+        attributes(
+            "Main-Class" to "ru.diplom.MainKt",
+            "Start-Class" to "ru.diplom.MainKt"
+        )
+    }
+    archiveBaseName.set("prog")
 }
