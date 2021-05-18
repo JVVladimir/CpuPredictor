@@ -34,6 +34,7 @@ fun main() {
             var algo = DynamicalAnalysis(codeToFragment.second)
             repeat(2) {
                 codeToFragment.first.startCode(algo)
+                println("Prediction after warming up")
                 algo = DynamicalAnalysis(codeToFragment.second)
             }
         }

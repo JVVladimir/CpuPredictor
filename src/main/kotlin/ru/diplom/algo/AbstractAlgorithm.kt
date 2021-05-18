@@ -23,7 +23,7 @@ abstract class AbstractAlgorithm(
             throw RuntimeException("Алгоритм поиска отработал не корректно и нашел не то!")
         condition.countExecutions++
 
-        logger.debug { "Branch predicted: $predictedConditionId, actual: $conditionId" }
+        println("Branch predicted: $predictedConditionId, actual: $conditionId")
         if (predictedConditionId != conditionId) {
             countOfMisses++
         } else {
@@ -34,20 +34,20 @@ abstract class AbstractAlgorithm(
 
     override fun onCodeEnd(lastCode: Int) {
         addId(-1)
-        logger.debug { "Branch predicted: ${if (predictedConditionId == -1) "end" else predictedConditionId}, actual: end" }
+        print("Branch predicted: ${if (predictedConditionId == -1) "end" else predictedConditionId}, actual: end")
         if (predictedConditionId != -1)
             countOfMisses++
         else
             countOfHits++
 
         precise = countOfHits.toDouble() / (countOfMisses + countOfHits)
-        logger.info {
+        println(
             """
             =======================================
-            "Code end with result: ${getInfo()}"
+            "Code ends with result: ${getInfo()}"
             =======================================
-        """.trimIndent()
-        }
+            """
+        )
     }
 
     private fun searchCondition(conditionId: Int): Condition {
