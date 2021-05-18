@@ -22,7 +22,10 @@ class DynamicAnalysisTest {
     @Test
     fun `code example one test`() {
         algorithm = DynamicalAnalysis(codeExampleOne.fragmentCode)
-        codeExampleOne.startCode(algorithm)
+        repeat(2) {
+            codeExampleOne.startCode(algorithm)
+            algorithm = DynamicalAnalysis(codeExampleOne.fragmentCode)
+        }
 
         assertThat(algorithm.countOfMisses).isEqualTo(2)
         assertThat(algorithm.countOfHits).isEqualTo(2)
@@ -33,7 +36,6 @@ class DynamicAnalysisTest {
     fun `code example two test`() {
         algorithm = DynamicalAnalysis(codeExampleTwo.fragmentCode)
         codeExampleTwo.startCode(algorithm)
-
         assertThat(algorithm.countOfMisses).isEqualTo(1)
         assertThat(algorithm.countOfHits).isEqualTo(2)
         assertThat(algorithm.countOfHits + algorithm.countOfMisses).isEqualTo(3)

@@ -17,6 +17,10 @@ import org.nd4j.linalg.lossfunctions.LossFunctions
 import ru.diplom.example.CodeExample
 import kotlin.math.roundToInt
 
+/**
+ * Динамический интеллектуальный алгоритм (на нейросети)
+ *
+ * */
 class NeuralNet(
     codeFragment: FragmentCode
 ) : AbstractAlgorithm(codeFragment) {

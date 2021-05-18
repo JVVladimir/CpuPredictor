@@ -7,7 +7,7 @@ import isCycle
 import isInitialCondition
 
 /**
- * Алгоритм статистического предсказания ветвлений
+ * Динамический интеллектуальный алгоритм
  *
  * */
 class DynamicalAnalysis(
@@ -20,7 +20,7 @@ class DynamicalAnalysis(
 
     override fun predictNextCondition(currentCond: Condition?): Int {
         if (currentCond == null) {
-            return codeFragment.conditions.first { it.id == 1 }.id
+            return codeFragment.conditions.maxOfWith(ExecutionCountComparator()) { it }.id
         }
 
         if (currentCond.conditions.isEmpty()) {

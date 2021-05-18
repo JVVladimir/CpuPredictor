@@ -44,7 +44,7 @@ abstract class AbstractAlgorithm(
         logger.info {
             """
             =======================================
-            "Code end with info:${getInfo()}"
+            "Code end with result: ${getInfo()}"
             =======================================
         """.trimIndent()
         }
@@ -97,7 +97,7 @@ abstract class AbstractAlgorithm(
         input = mutableListOf()
     }
 
-    fun getInfo(): String {
-        return "Missed: $countOfMisses, Hit: $countOfHits, Precise: $precise"
+    private fun getInfo(): String {
+        return "Missed: $countOfMisses, Hits: $countOfHits, Precise: $precise"
     }
 }

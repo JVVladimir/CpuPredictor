@@ -5,6 +5,10 @@ import FragmentCode
 import isCycle
 import isInitialCondition
 
+/**
+ * Статический интеллектуальный алгоритм
+ *
+ * */
 class StaticalFirstForward(
     private val codeFragment: FragmentCode
 ) : AbstractAlgorithm(codeFragment) {
