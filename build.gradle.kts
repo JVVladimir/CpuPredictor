@@ -7,7 +7,6 @@ plugins {
 }
 
 group = "me.vladimir"
-version = "1.0-SNAPSHOT"
 
 buildscript {
     repositories { mavenCentral() }
@@ -62,8 +61,8 @@ tasks.withType<Jar> {
     enabled = true
     manifest {
         attributes(
-            "Main-Class" to "ru.diplom.MainKt",
-            "Start-Class" to "ru.diplom.MainKt"
+            "Main-Class" to "MainKt",
+            "Start-Class" to "MainKt"
         )
     }
     archiveBaseName.set("prog")
