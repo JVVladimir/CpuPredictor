@@ -22,25 +22,31 @@ fun main() {
     val algNum = readLine()?.toInt() ?: throw RuntimeException("Введена пустая строка!")
     if (algNum < 1 || algNum > MAX_ALGO)
         throw RuntimeException("Варианта алгоритма не существует!")
-    println("Введены значения: $sampleNum $algNum")
+
+    println("Включить пошаговый режим исполнения? (Y/N)")
+    val stepByStepMode = readLine() ?: throw RuntimeException("Введена пустая строка!")
+    var stepMode = false
+    if (stepByStepMode.toUpperCase() == "Y") {
+        stepMode = true
+    }
 
     val codeToFragment = codeFromSampleNum(sampleNum)
 
     when (algNum) {
         1 -> {
-            codeToFragment.first.startCode(StaticalFirstForward(codeToFragment.second))
+            codeToFragment.first.startCode(StaticalFirstForward(codeToFragment.second, stepMode))
         }
         2 -> {
-            var algo = DynamicalAnalysis(codeToFragment.second)
+            var algo = DynamicalAnalysis(codeToFragment.second, stepMode)
             repeat(2) {
                 codeToFragment.first.startCode(algo)
                 if (it == 1)
                     println("Prediction after warming up")
-                algo = DynamicalAnalysis(codeToFragment.second)
+                algo = DynamicalAnalysis(codeToFragment.second, stepMode)
             }
         }
         3 -> {
-            val algo = NeuralNet(codeToFragment.second)
+            val algo = NeuralNet(codeToFragment.second, stepMode)
             algo.prepareDataSet(codeToFragment.first)
             codeToFragment.first.startCode(algo)
         }

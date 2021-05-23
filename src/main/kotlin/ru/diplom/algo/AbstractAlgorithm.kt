@@ -2,13 +2,11 @@ package ru.diplom.algo
 
 import Condition
 import FragmentCode
-import mu.KLogging
 
 abstract class AbstractAlgorithm(
-    private val codeFragment: FragmentCode
+    private val codeFragment: FragmentCode,
+    private val stepMode: Boolean
 ) : EventListener {
-
-    companion object : KLogging()
 
     open var countOfMisses = 0
     open var countOfHits = 0
@@ -30,6 +28,9 @@ abstract class AbstractAlgorithm(
             countOfHits++
         }
         predictedConditionId = predictNextCondition(condition)
+        if (stepMode) {
+            readLine()
+        }
     }
 
     override fun onCodeEnd(lastCode: Int) {

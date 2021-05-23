@@ -24,8 +24,6 @@ repositories {
 }
 
 dependencies {
-    implementation("io.github.microutils:kotlin-logging:2.0.6")
-    implementation("ch.qos.logback:logback-classic:1.2.3")
     implementation ("org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.1.0")
 
     implementation ("org.deeplearning4j:deeplearning4j-core:1.0.0-beta7") {

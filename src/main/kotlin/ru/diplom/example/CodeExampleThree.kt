@@ -3,12 +3,9 @@ package ru.diplom.example
 import Condition
 import ConditionType.*
 import FragmentCode
-import mu.KLogging
 import ru.diplom.algo.EventListener
 
 class CodeExampleThree : CodeExample {
-
-    companion object : KLogging()
 
     val fragmentCode = FragmentCode(
         listOf(

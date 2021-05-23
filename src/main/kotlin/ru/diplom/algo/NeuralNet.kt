@@ -22,15 +22,16 @@ import kotlin.math.roundToInt
  *
  * */
 class NeuralNet(
-    codeFragment: FragmentCode
-) : AbstractAlgorithm(codeFragment) {
+    codeFragment: FragmentCode,
+    stepMode: Boolean
+) : AbstractAlgorithm(codeFragment, stepMode) {
 
     private val net: MultiLayerNetwork
     private val curIteration = Nd4j.zeros(1, 3)
 
     init {
         net = createNet()
-        logger.info { net.summary() }
+        println(net.summary())
     }
 
     fun prepareDataSet(codeExample: CodeExample) {
@@ -39,7 +40,7 @@ class NeuralNet(
         val ds = createDataSet(this.input)
 
         net.train(ds)
-        logger.info { "After train output: ${net.output(ds.features)}" }
+        println("After train output: ${net.output(ds.features)}")
         predictedConditionId = predictNextCondition(null)
     }
 

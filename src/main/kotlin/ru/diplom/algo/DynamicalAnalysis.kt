@@ -11,8 +11,9 @@ import isInitialCondition
  *
  * */
 class DynamicalAnalysis(
-    private val codeFragment: FragmentCode
-) : AbstractAlgorithm(codeFragment) {
+    private val codeFragment: FragmentCode,
+    stepMode: Boolean
+) : AbstractAlgorithm(codeFragment, stepMode) {
 
     init {
         predictedConditionId = predictNextCondition(null)

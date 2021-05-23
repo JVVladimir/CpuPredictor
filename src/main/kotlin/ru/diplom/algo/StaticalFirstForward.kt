@@ -10,8 +10,9 @@ import isInitialCondition
  *
  * */
 class StaticalFirstForward(
-    private val codeFragment: FragmentCode
-) : AbstractAlgorithm(codeFragment) {
+    private val codeFragment: FragmentCode,
+    stepMode: Boolean
+) : AbstractAlgorithm(codeFragment, stepMode) {
 
     init {
         predictedConditionId = predictNextCondition(null)

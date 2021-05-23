@@ -3,12 +3,9 @@ package ru.diplom.example
 import Condition
 import ConditionType.*
 import FragmentCode
-import mu.KLogging
 import ru.diplom.algo.EventListener
 
 class CodeExampleTwo : CodeExample {
-
-    companion object : KLogging()
 
     // id идут строго по порядку по возрастанию!!!
     val fragmentCode = FragmentCode(

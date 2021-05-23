@@ -4,13 +4,10 @@ import Condition
 import ConditionType.ELSE
 import ConditionType.IF
 import FragmentCode
-import mu.KLogging
 import ru.diplom.algo.EventListener
 
 // Предсказатель ветвлений должен, не разбирая условие, понять куда ему двигаться!!!
 class CodeExampleOne : CodeExample {
-
-    companion object : KLogging()
 
     // id идут строго по порядку по возрастанию!!!
     val fragmentCode = FragmentCode(
