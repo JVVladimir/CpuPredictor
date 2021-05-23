@@ -23,7 +23,8 @@ import kotlin.math.roundToInt
  * */
 class NeuralNet(
     codeFragment: FragmentCode,
-    stepMode: Boolean
+    stepMode: Boolean,
+    private val epochs: Int = 3000
 ) : AbstractAlgorithm(codeFragment, stepMode) {
 
     private val net: MultiLayerNetwork
@@ -71,8 +72,8 @@ class NeuralNet(
         return net.output(ds.features).getDouble(0).roundToInt()
     }
 
-    private fun MultiLayerNetwork.train(ds: DataSet, epoch: Int = 3000) {
-        for (i in 0 until epoch) {
+    private fun MultiLayerNetwork.train(ds: DataSet) {
+        for (i in 0 until epochs) {
             this.fit(ds)
         }
     }

@@ -49,7 +49,9 @@ fun main() {
             }
         }
         3 -> {
-            val algo = NeuralNet(codeToFragment.second, stepMode)
+            println("Введите число итераций для обучения перцептрона (рекомендуемое значение - 3000): ")
+            val epochs = readLine() ?: throw RuntimeException("Введена пустая строка!")
+            val algo = NeuralNet(codeToFragment.second, stepMode, epochs.toInt())
             println("Train process")
             println("=================================================")
             algo.prepareDataSet(codeToFragment.first)
