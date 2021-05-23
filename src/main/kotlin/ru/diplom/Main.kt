@@ -1,3 +1,6 @@
+package ru.diplom
+
+import FragmentCode
 import ru.diplom.algo.DynamicalAnalysis
 import ru.diplom.algo.NeuralNet
 import ru.diplom.algo.StaticalFirstForward
@@ -47,7 +50,11 @@ fun main() {
         }
         3 -> {
             val algo = NeuralNet(codeToFragment.second, stepMode)
+            println("Train process")
+            println("=================================================")
             algo.prepareDataSet(codeToFragment.first)
+            println("\nCode execution:")
+            println("=================================================")
             codeToFragment.first.startCode(algo)
         }
         else -> throw RuntimeException("Выбран номер несуществующего алгоритма!")

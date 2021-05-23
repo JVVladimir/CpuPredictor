@@ -15,13 +15,15 @@ abstract class AbstractAlgorithm(
     open var input = mutableListOf<Pair<MutableList<Int>, Int>>()
 
     override fun event(conditionId: Int) {
+        codeFragment.countExecutions++
         addId(conditionId)
         val condition = searchCondition(conditionId)
         if (condition.id != conditionId)
             throw RuntimeException("Алгоритм поиска отработал не корректно и нашел не то!")
         condition.countExecutions++
 
-        println("Branch predicted: $predictedConditionId, actual: $conditionId")
+        printSpecialInfoOnEachStep()
+        println("Branch predicted: ${if (predictedConditionId == -1) "-1" else searchCondition(predictedConditionId)}, actual: $condition")
         if (predictedConditionId != conditionId) {
             countOfMisses++
         } else {
@@ -33,6 +35,8 @@ abstract class AbstractAlgorithm(
         }
     }
 
+    abstract fun printSpecialInfoOnEachStep()
+
     override fun onCodeEnd(lastCode: Int) {
         addId(-1)
         print("Branch predicted: ${if (predictedConditionId == -1) "end" else predictedConditionId}, actual: end")
@@ -42,12 +46,11 @@ abstract class AbstractAlgorithm(
             countOfHits++
 
         precise = countOfHits.toDouble() / (countOfMisses + countOfHits)
-        println(
-            """
-            =======================================
-            "Code ends with result: ${getInfo()}"
-            =======================================
-            """
+        println("""
+=============================================================
+"Code ends with result: ${getInfo()}"
+=============================================================
+        """
         )
     }
 

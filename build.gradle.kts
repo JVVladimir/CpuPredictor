@@ -59,8 +59,8 @@ tasks.withType<Jar> {
     enabled = true
     manifest {
         attributes(
-            "Main-Class" to "MainKt",
-            "Start-Class" to "MainKt"
+            "Main-Class" to "ru.diplom.MainKt",
+            "Start-Class" to "ru.diplom.MainKt"
         )
     }
     archiveBaseName.set("prog")

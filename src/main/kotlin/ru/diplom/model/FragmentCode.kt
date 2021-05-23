@@ -2,7 +2,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class FragmentCode(
-    val conditions: List<Condition>
+    val conditions: List<Condition>,
+    var countExecutions: Int = 0
 )
 
 @Serializable
@@ -14,7 +15,7 @@ data class Condition(
     var conditions: List<Condition> = emptyList()
 ) {
     override fun toString(): String {
-        return "Id: $id, $type, Count: $countExecutions $conditions"
+        return "0x${Integer.toHexString(id*1203217)}"
     }
 }
 

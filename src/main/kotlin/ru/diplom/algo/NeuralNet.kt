@@ -58,6 +58,10 @@ class NeuralNet(
         return DataSet(input, labels)
     }
 
+    override fun printSpecialInfoOnEachStep() {
+
+    }
+
     override fun predictNextCondition(currentCond: Condition?): Int {
         for (i in 0..1) {
             curIteration.putScalar(intArrayOf(0, i), curIteration.getInt(0, i + 1))

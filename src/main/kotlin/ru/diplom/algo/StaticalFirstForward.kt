@@ -18,6 +18,9 @@ class StaticalFirstForward(
         predictedConditionId = predictNextCondition(null)
     }
 
+    override fun printSpecialInfoOnEachStep() {
+    }
+
     // работает не больше трех уровней вложенности
     override fun predictNextCondition(currentCond: Condition?): Int {
         if (currentCond == null) {
