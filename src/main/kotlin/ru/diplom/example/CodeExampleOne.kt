@@ -20,6 +20,28 @@ class CodeExampleOne : CodeExample {
         )
     )
 
+    val example = """
+        val a = 5
+        val b = 0
+
+        if (a > 1_000) {
+            listener event 1
+        } else {
+            listener event 2
+        }
+
+        if (b < 10) {
+            listener event 3
+        }
+
+        if (a > 10) {
+            listener event 4
+        } else {
+            listener event 5
+        }
+        listener.onCodeEnd()
+    """
+
     override fun startCode(listener: EventListener) {
         val a = 5
         val b = 0
@@ -42,4 +64,5 @@ class CodeExampleOne : CodeExample {
         listener.onCodeEnd()
     }
 
+    override fun getCode() = example
 }

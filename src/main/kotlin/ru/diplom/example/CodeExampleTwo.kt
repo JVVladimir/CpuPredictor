@@ -7,6 +7,34 @@ import ru.diplom.algo.EventListener
 
 class CodeExampleTwo : CodeExample {
 
+    val example = """
+        val number1 = 60
+        val number2 = 60
+        if (number1 < 0) {
+            listener event 1
+            if (number2 < 0) {
+                listener event 2
+                "Negative numbers"
+            } else {
+                listener event 3
+                "First negative, second positive"
+            }
+        } else if (number1 > 0) {
+            listener event 4
+            if (number2 > 0) {
+                listener event 5
+                "Positive numbers"
+            } else {
+                listener event 6
+                "First positive, second negative"
+            }
+        } else {
+            listener event 7
+            "Both equal 0"
+        }
+        listener.onCodeEnd()
+    """.trimIndent()
+
     // id идут строго по порядку по возрастанию!!!
     val fragmentCode = FragmentCode(
         conditions = listOf(
@@ -53,5 +81,7 @@ class CodeExampleTwo : CodeExample {
         }
         listener.onCodeEnd()
     }
+
+    override fun getCode() = example
 
 }

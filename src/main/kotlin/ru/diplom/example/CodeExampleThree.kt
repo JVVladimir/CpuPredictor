@@ -21,6 +21,35 @@ class CodeExampleThree : CodeExample {
         )
     )
 
+    val example = """
+        var a = 0
+        val b = 0
+
+        while (a < 10) {
+            listener event 1
+            if (a > 1_000) {
+                listener event 2
+            } else {
+                listener event 3
+            }
+
+            if (b < 10) {
+                listener event 4
+            }
+            a++
+        }
+
+        if (a > 9) {
+            listener event 5
+        }
+
+        if (a < 9) {
+            listener event 6
+        }
+
+        listener.onCodeEnd()
+    """.trimIndent()
+
     override fun startCode(listener: EventListener) {
         var a = 0
         val b = 0
@@ -49,5 +78,7 @@ class CodeExampleThree : CodeExample {
 
         listener.onCodeEnd()
     }
+
+    override fun getCode() = example
 
 }

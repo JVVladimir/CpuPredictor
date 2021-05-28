@@ -19,6 +19,27 @@ class CodeExampleFive : CodeExample {
         )
     )
 
+    val example = """
+        val arr = intArrayOf(2, 15, 1, 8, 4) //16, 29, 1, 32, 46, 98, 63, 71, 15, 19, 92, 67)
+        var swap = true
+        while (swap) {
+            listener event 1
+            swap = false
+            for (i in 0 until arr.size - 1) {
+                listener event 2
+                if (arr[i] > arr[i + 1]) {
+                    listener event 3
+                    val temp = arr[i]
+                    arr[i] = arr[i + 1]
+                    arr[i + 1] = temp
+                    swap = true
+                }
+            }
+        }
+
+        listener.onCodeEnd()
+    """.trimIndent()
+
     override fun startCode(listener: EventListener) {
         // Для полностью случайного массива - предсказание не возможно
         val arr = intArrayOf(2, 15, 1, 8, 4) //16, 29, 1, 32, 46, 98, 63, 71, 15, 19, 92, 67)
@@ -41,4 +62,5 @@ class CodeExampleFive : CodeExample {
         listener.onCodeEnd()
     }
 
+    override fun getCode() = example
 }

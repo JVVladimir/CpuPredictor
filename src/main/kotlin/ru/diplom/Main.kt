@@ -35,6 +35,16 @@ fun main() {
 
     val codeToFragment = codeFromSampleNum(sampleNum)
 
+    println("Показать фрагмент кода? (Y/N)")
+    val showCode = readLine() ?: throw RuntimeException("Введена пустая строка!")
+    if (showCode.toUpperCase() == "Y") {
+        println(
+            "================ !! Code fragment!! ======================" +
+                    "${codeToFragment.first.getCode()}\n" +
+                    "======================================"
+        )
+    }
+
     when (algNum) {
         1 -> {
             codeToFragment.first.startCode(StaticalFirstForward(codeToFragment.second, stepMode))

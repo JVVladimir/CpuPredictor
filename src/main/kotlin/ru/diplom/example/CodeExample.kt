@@ -5,4 +5,6 @@ import ru.diplom.algo.EventListener
 interface CodeExample {
 
     fun startCode(listener: EventListener)
+
+    fun getCode(): String
 }
